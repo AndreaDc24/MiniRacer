@@ -9,6 +9,34 @@
   <title>MiniRacer</title>
   <link rel="manifest" href="manifest.json" />
 
+  <script>
+    (function () {
+      function showError(msg) {
+        var el = document.getElementById('__err');
+        if (!el) {
+          el = document.createElement('div');
+          el.id = '__err';
+          el.style.cssText = 'position:fixed;inset:0;background:#0d0d1a;color:#ff5252;font:13px/1.5 monospace;padding:16px;overflow-y:auto;z-index:99999;white-space:pre-wrap;word-break:break-all';
+          el.innerHTML = '<b style="font-size:16px">ERROR LOG</b>\n<span style="color:#888;font-size:11px">tap to dismiss each entry</span>\n\n';
+          document.body ? document.body.appendChild(el) : document.addEventListener('DOMContentLoaded', function(){ document.body.appendChild(el); });
+        }
+        var entry = document.createElement('div');
+        entry.style.cssText = 'border:1px solid #ff525244;border-radius:6px;padding:10px;margin-bottom:10px;background:#1a0000;cursor:pointer';
+        entry.textContent = new Date().toISOString().slice(11,19) + '  ' + msg;
+        entry.addEventListener('click', function(){ entry.remove(); });
+        el.appendChild(entry);
+      }
+      window.addEventListener('error', function(e) {
+        showError((e.message || e) + (e.filename ? '\n@ ' + e.filename + ':' + e.lineno : '') + (e.error && e.error.stack ? '\n' + e.error.stack : ''));
+      });
+      window.addEventListener('unhandledrejection', function(e) {
+        var r = e.reason;
+        showError('Unhandled promise rejection:\n' + (r && r.stack ? r.stack : r));
+      });
+      window.__showError = showError;
+    })();
+  </script>
+
   <script type="importmap">
   {
     "imports": {
