@@ -1,0 +1,14 @@
+{
+  "name": "MiniRacer",
+  "short_name": "MiniRacer",
+  "description": "Porsche 911 GT3 on Monza — gyro racing",
+  "start_url": "/",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#1a1a2e",
+  "theme_color": "#1a1a2e",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
