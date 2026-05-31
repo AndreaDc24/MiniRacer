@@ -16,7 +16,7 @@ export class RaceScreen {
   constructor(container, params, options, onBack) {
     this._container = container;
     this._params    = params;
-    this._options   = { ...options, trackWidth: monzaData.trackWidth };
+    this._options   = { ...options };
     this._onBack    = onBack;
     this._rafId     = null;
     this._running   = false;
