@@ -30,8 +30,8 @@ export function isGyroActive() { return _active; }
 
 function _onOrientation(e) {
   if (!_params) return;
-  // gamma = phone tilt left/right, range roughly ±90°
-  const raw = (e.gamma ?? 0) * (Math.PI / 180);  // convert to radians
+  // In landscape, beta = left/right tilt (steering axis)
+  const raw = (e.beta ?? 0) * (Math.PI / 180);  // convert to radians
   const alpha = _params.steerFilterAlpha;
   _filteredGamma = _filteredGamma + alpha * (raw - _filteredGamma);
 }
