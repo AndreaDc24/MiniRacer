@@ -32,8 +32,27 @@ export class RaceScreen {
   }
 
   async _build() {
+    try {
+      await this._buildInner();
+    } catch (err) {
+      this._showError(err);
+    }
+  }
+
+  _showError(err) {
+    const el = document.createElement('div');
+    Object.assign(el.style, {
+      position: 'fixed', inset: '0', background: '#1a1a2e',
+      color: '#ff5252', fontFamily: 'monospace', fontSize: '14px',
+      padding: '24px', whiteSpace: 'pre-wrap', zIndex: '9999', overflowY: 'auto',
+    });
+    el.textContent = 'RACE ERROR\n\n' + (err?.stack || err);
+    document.body.appendChild(el);
+  }
+
+  async _buildInner() {
     // ── Fetch track data ──────────────────────────────────────────────────
-    const monzaData = await fetch('../src/track/monza.json').then(r => r.json());
+    const monzaData = await fetch('src/track/monza.json').then(r => r.json());
     this._monzaData = monzaData;
     this._options.trackWidth = monzaData.trackWidth;
 
